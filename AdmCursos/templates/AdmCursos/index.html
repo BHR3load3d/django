@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    {% if cursos%}
+                    <table class="table">
+                        <thead><th>Cursos</th><th><a href="{% url 'add' 1%}">Agregar</a></th><th></th></thead>
+                    {% for curso in cursos %}
+                        <tr><td>{{ curso.nombre }}</td><td><a href="{% url 'delete' curso.id 1 %}">Baja</a></td><td><a href="{% url 'addParticipantes' curso.id%}">Administrar</a></td></tr>
+                    {% endfor %}
+                    </table>
+                    {%endif%}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    {% if docentes%}
+                    <table class="table">
+                        <thead><th>Docentes</th><th><a href="{% url 'add' 2%}">Agregar</a></th></thead>
+                    {% for docente in docentes %}
+                        <tr><td>{{ docente.apellido}}&nbsp;{{docente.nombre }}</td><td><a href="{% url 'delete' docente.id 2 %}">Baja</a></td></tr>
+                    {% endfor %}
+                    </table>
+                    {%endif%}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    {% if alumnos%}
+                    <table class="table">
+                        <thead><th>Alumnos</th><th><a href="{% url 'add' 3%}">Agregar</a></th></thead>
+                    {% for alumno in alumnos %}
+                        <tr><td>{{alumno.apellido}}&nbsp;{{ alumno.nombre }}</td><td><a href="{% url 'delete' alumno.id 3 %}">Baja</a></td></tr>
+                    {% endfor %}
+                    </table>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>
+<!-- {{fecha_hora}} -->
+

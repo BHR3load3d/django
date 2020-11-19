@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <br>
+            <div class="row">
+                <div class="col">
+                    <h4><label>Información del curso {{curso.nombre}}</label></h4>
+                </div>
+            </div>
+            <br>
+            <form action="{% url 'asociarParticipante' curso.id 3 %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-1"><label>Alumno</label></div>
+                    <div class="col-md-4"><select class="form-control" style="width:100%" name="AlumSelect" id='AlumSelect'>
+                        {% for a in lstAlumnos %}
+                        <option value="{{a.id}}">{{a.apellido}}&nbsp;{{a.nombre}}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-md-3"><button class="form-control" type="submit">Agregar al curso</button></div>
+                </div>
+            </form>
+            <br>
+            <form action="{% url 'asociarParticipante' curso.id 2 %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-1"><label>Docente</label></div>
+                    <div class="col-md-4">
+                        <select class="form-control" style="width:100%" name="DocSelect" id='DocSelect'>
+                        {% for d in lstDocentes %}
+                        <option value="{{d.id}}">{{d.apellido}}&nbsp;{{d.nombre}}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-md-3"><button class="form-control" type="submit">Agregar al curso</button></div>
+                </div>
+            </form>
+            <br>
+            <div class="row">
+                <div class="col">
+                    {% if lstDocAsoc%}
+                    <table class="table">
+                        <thead><th>Docentes asociados</th><th></th></thead>
+                    {% for docente in lstDocAsoc %}
+                        <tr><td>{{ docente.docente_id.apellido}}&nbsp;{{docente.docente_id.nombre}}</td><td><a href="{% url 'bajaParticipante' docente.docente_id.id docente.curso_id_id 2 %}">Baja</a></td></tr>
+                    {% endfor %}
+                    </table>
+                    {%endif%}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    {% if lstAlumAsoc%}
+                    <table class="table">
+                        <thead><th>Alumnos</th><th></th></thead>
+                    {% for alumno in lstAlumAsoc %}
+                        <tr><td>{{alumno.alumno_id.apellido}}&nbsp;{{alumno.alumno_id.nombre}}</td><td><a href="{% url 'bajaParticipante' alumno.alumno_id.id alumno.curso_id_id 3 %}">Baja</a></td></tr>
+                    {% endfor %}
+                    </table>
+                    {%endif%}
+                </div>
+            </div>
+
+            <!-- {{queryAlumno}} -->
+        </div>
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>
